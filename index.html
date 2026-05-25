@@ -622,608 +622,6 @@ function formInteraction(i){
         </div>
       </div>
     </div>
-  </div>`;}html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meu CRM</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#F7F6F3;--surface:#FFF;--surface2:#F0EEE9;--border:#E3E0D8;--border2:#C8C4B8;
-  --text:#18170F;--text2:#68655A;--text3:#A09C90;
-  --accent:#2B2960;--accent-l:#EEEDFE;--accent-t:#3C3489;
-  --green:#1D9E75;--green-bg:#E1F5EE;
-  --amber:#9A6510;--amber-bg:#FEF3DC;
-  --red:#A32D2D;--red-bg:#FCEBEB;
-  --blue:#185FA5;--blue-bg:#E6F1FB;
-  --purple:#533AB7;--purple-bg:#EEEDFE;
-  --r:10px;--rs:6px;
-}
-body{font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);background:var(--bg);min-height:100vh}
-.app{display:flex;flex-direction:column;min-height:100vh}
-
-.topbar{display:flex;align-items:center;gap:16px;padding:0 24px;height:54px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
-.logo{font-size:15px;font-weight:500;color:var(--accent);letter-spacing:-.3px;display:flex;align-items:center;gap:8px}
-.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
-.nav{display:flex;gap:2px;margin-left:auto}
-.nav button{font-family:'DM Sans',sans-serif;font-size:13px;padding:6px 14px;border:none;background:transparent;cursor:pointer;border-radius:var(--rs);color:var(--text2);transition:all .15s;display:flex;align-items:center;gap:6px}
-.nav button:hover{background:var(--surface2);color:var(--text)}
-.nav button.active{background:var(--accent);color:#fff}
-.nav button svg{width:14px;height:14px}
-
-.content{flex:1;padding:24px;max-width:1100px;margin:0 auto;width:100%}
-.section{display:none}.section.active{display:block}
-
-/* STATS */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
-.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px}
-.stat .val{font-size:28px;font-weight:500;letter-spacing:-1.5px}
-.stat .lbl{font-size:11px;color:var(--text3);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
-
-.toolbar{display:flex;gap:8px;margin-bottom:16px;align-items:center}
-.toolbar input{flex:1;padding:8px 12px;border:1px solid var(--border);border-radius:var(--rs);font-size:13px;background:var(--surface);color:var(--text);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s}
-.toolbar input:focus{border-color:var(--accent)}
-.toolbar-info{flex:1;font-size:13px;color:var(--text2)}
-
-.btn{padding:8px 16px;border:1px solid var(--border2);border-radius:var(--rs);background:var(--surface);cursor:pointer;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:6px;transition:all .15s;white-space:nowrap}
-.btn:hover{background:var(--surface2)}
-.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
-.btn.primary:hover{background:#211F4A}
-.btn.sm{padding:5px 11px;font-size:12px}
-.btn.ghost{border-color:transparent;background:transparent;color:var(--text2)}
-.btn.ghost:hover{background:var(--surface2);color:var(--text)}
-.btn.danger{border-color:transparent;background:transparent;color:var(--red)}
-.btn.danger:hover{background:var(--red-bg)}
-.btn.ai{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-bg)}
-.btn.ai:hover{background:#DDD9FA}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-
-/* BACKUP BAR */
-.backup-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.backup-bar-icon{width:36px;height:36px;border-radius:50%;background:var(--accent-l);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.backup-bar-icon svg{width:18px;height:18px;color:var(--accent-t)}
-.backup-bar-text{flex:1;min-width:160px}
-.backup-bar-text strong{display:block;font-size:13px;font-weight:500;margin-bottom:1px}
-.backup-bar-text span{font-size:12px;color:var(--text2)}
-.backup-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.coming-soon{font-size:11px;color:var(--text3);padding:5px 10px;background:var(--surface2);border-radius:20px;border:1px solid var(--border)}
-
-/* CONTACTS */
-.contacts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
-.contact-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;cursor:pointer;transition:all .15s}
-.contact-card:hover{border-color:var(--border2);box-shadow:0 2px 10px rgba(0,0,0,.06)}
-.avatar{width:42px;height:42px;border-radius:50%;background:var(--accent-l);color:var(--accent-t);display:flex;align-items:center;justify-content:center;font-weight:500;font-size:14px;margin-bottom:12px}
-.contact-card h3{font-size:14px;font-weight:500;margin-bottom:2px}
-.contact-card .co{font-size:12px;color:var(--text2);margin-bottom:1px}
-.contact-card .em{font-size:12px;color:var(--text3)}
-.tag{display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;margin-top:8px;font-weight:500}
-.tag.lead{background:var(--blue-bg);color:var(--blue)}
-.tag.cliente{background:var(--green-bg);color:var(--green)}
-.tag.inativo{background:var(--surface2);color:var(--text3)}
-.tag.prospect{background:var(--amber-bg);color:var(--amber)}
-.card-actions{display:flex;gap:4px;margin-top:10px}
-.objection-pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:2px 8px;border-radius:20px;background:var(--red-bg);color:var(--red);margin-top:6px;margin-right:4px}
-
-/* PIPELINE */
-.pipeline-wrap{overflow-x:auto;padding-bottom:4px}
-.pipeline{display:grid;grid-template-columns:repeat(4,minmax(210px,1fr));gap:10px;min-width:760px}
-.stage{background:var(--surface2);border-radius:var(--r);padding:12px}
-.stage-header{font-size:11px;font-weight:500;color:var(--text2);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;text-transform:uppercase;letter-spacing:.6px}
-.stage-count{background:var(--surface);border-radius:20px;padding:1px 8px;font-size:11px;font-weight:500}
-.deal-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:11px 12px;margin-bottom:6px;cursor:pointer;transition:all .15s}
-.deal-card:hover{border-color:var(--border2);box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.deal-card h4{font-size:13px;font-weight:500;margin-bottom:3px}
-.deal-card .dc{font-size:12px;color:var(--text2)}
-.deal-value{font-size:13px;font-weight:500;color:var(--accent);margin-top:7px}
-.add-deal-btn{width:100%;border:1px dashed var(--border2);background:transparent;border-radius:var(--rs);padding:7px;font-size:12px;color:var(--text3);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
-.add-deal-btn:hover{border-color:var(--accent);color:var(--accent)}
-
-/* TASKS */
-.tasks-list{display:flex;flex-direction:column;gap:6px}
-.task-item{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:10px 14px;transition:opacity .15s}
-.task-item.done{opacity:.4}
-.task-check{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
-.task-check:hover{border-color:var(--accent)}
-.task-check.checked{background:var(--accent);border-color:var(--accent);color:#fff}
-.task-label{flex:1}
-.task-title{font-size:13px}
-.task-item.done .task-title{text-decoration:line-through}
-.task-meta{font-size:11px;color:var(--text3);margin-top:2px}
-.prio{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.p-alta{background:var(--red)}.p-media{background:#EF9F27}.p-baixa{background:var(--green)}
-
-/* HISTORY */
-.history-list{display:flex;flex-direction:column}
-.h-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
-.h-icon{width:34px;height:34px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px}
-.h-body{flex:1}
-.h-body h4{font-size:13px;font-weight:500;margin-bottom:3px}
-.h-body p{font-size:12px;color:var(--text2);line-height:1.5}
-.h-time{font-size:11px;color:var(--text3);margin-top:4px}
-.h-objections{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
-
-/* ANÁLISE */
-.analysis-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
-.analysis-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px}
-.analysis-card h3{font-size:13px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px}
-.obj-bar-item{margin-bottom:10px}
-.obj-bar-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px}
-.obj-bar-label span:last-child{color:var(--text2);font-size:12px}
-.obj-bar-track{background:var(--surface2);border-radius:4px;height:6px;overflow:hidden}
-.obj-bar-fill{height:100%;border-radius:4px;background:var(--red);transition:width .4s ease}
-.obj-contact-item{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)}
-.obj-contact-item:last-child{border-bottom:none}
-.obj-contact-avatar{width:30px;height:30px;border-radius:50%;background:var(--accent-l);color:var(--accent-t);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0}
-.obj-contact-info{flex:1}
-.obj-contact-name{font-size:13px;font-weight:500}
-.obj-contact-pills{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px}
-.analysis-empty{text-align:center;padding:32px;color:var(--text3);font-size:13px}
-
-/* CONV MODAL */
-.conv-tabs{display:flex;gap:2px;margin-bottom:16px;background:var(--surface2);padding:3px;border-radius:var(--rs)}
-.conv-tab{flex:1;padding:6px;border:none;background:transparent;cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text2);border-radius:4px;transition:all .15s}
-.conv-tab.active{background:var(--surface);color:var(--text);font-weight:500}
-.conv-panel{display:none}.conv-panel.active{display:block}
-.ai-status{font-size:12px;color:var(--text2);margin-top:8px;min-height:18px;display:flex;align-items:center;gap:6px}
-.spinner{width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--purple);border-radius:50%;animation:spin .7s linear infinite;display:none}
-.spinner.show{display:inline-block}
-@keyframes spin{to{transform:rotate(360deg)}}
-.extracted-list{margin-top:10px;display:flex;flex-direction:column;gap:6px}
-.extracted-item{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:var(--surface2);border-radius:var(--rs);font-size:13px}
-.extracted-item input[type=checkbox]{margin-top:2px;accent-color:var(--accent);flex-shrink:0}
-
-/* MODAL */
-.overlay{position:fixed;inset:0;background:rgba(10,9,5,.45);display:none;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(3px)}
-.overlay.open{display:flex}
-.modal{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);padding:24px;width:480px;max-width:95vw;max-height:90vh;overflow-y:auto}
-.modal h2{font-size:16px;font-weight:500;margin-bottom:18px}
-.form-row{margin-bottom:13px}
-.form-row label{display:block;font-size:11px;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;font-weight:500}
-.form-row input,.form-row select,.form-row textarea{width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--rs);font-size:13px;background:var(--surface);color:var(--text);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s}
-.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--accent)}
-.form-row textarea{height:80px;resize:vertical}
-.form-row textarea.tall{height:140px}
-.modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
-
-.empty{text-align:center;padding:52px 20px;color:var(--text3)}
-.empty p{font-size:13px;margin-top:8px}
-
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;font-size:13px;padding:10px 20px;border-radius:var(--rs);z-index:200;transition:transform .25s;pointer-events:none}
-.toast.show{transform:translateX(-50%) translateY(0)}
-</style>
-</head>
-<body>
-<div class="app">
-  <div class="topbar">
-    <div class="logo"><div class="logo-dot"></div>Meu CRM</div>
-    <nav class="nav">
-      <button class="active" onclick="showSection('contacts')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Contatos
-      </button>
-      <button onclick="showSection('pipeline')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="10" y="7" width="5" height="14" rx="1"/><rect x="17" y="11" width="5" height="10" rx="1"/></svg>
-        Oportunidades
-      </button>
-      <button onclick="showSection('tasks')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        Tarefas
-      </button>
-      <button onclick="showSection('history')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Histórico
-      </button>
-      <button onclick="showSection('analysis')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        Análise
-      </button>
-    </nav>
-  </div>
-
-  <div class="content">
-
-    <!-- CONTACTS -->
-    <div id="sec-contacts" class="section active">
-      <div class="stats-row" id="stats-row"></div>
-      <div class="backup-bar">
-        <div class="backup-bar-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        </div>
-        <div class="backup-bar-text">
-          <strong>Seus dados, sempre com você</strong>
-          <span>Faça uma cópia de segurança ou exporte sua lista de contatos</span>
-        </div>
-        <div class="backup-actions">
-          <button class="btn sm" onclick="exportarBackup()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Exportar dados
-          </button>
-          <button class="btn sm" onclick="exportarContatos()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Baixar planilha
-          </button>
-          <button class="btn sm" onclick="restaurarDados()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            Restaurar
-          </button>
-          <span class="coming-soon">Notion · Google Drive em breve</span>
-        </div>
-      </div>
-      <div class="toolbar">
-        <input type="text" id="search-contacts" placeholder="Buscar por nome ou empresa..." oninput="renderContacts()">
-        <button class="btn primary" onclick="openModal('contact')">+ Novo contato</button>
-      </div>
-      <div class="contacts-grid" id="contacts-grid"></div>
-    </div>
-
-    <!-- PIPELINE -->
-    <div id="sec-pipeline" class="section">
-      <div class="toolbar">
-        <span class="toolbar-info" id="pipeline-summary"></span>
-        <button class="btn primary" onclick="openModal('deal')">+ Nova oportunidade</button>
-      </div>
-      <div class="pipeline-wrap"><div class="pipeline" id="pipeline-board"></div></div>
-    </div>
-
-    <!-- TASKS -->
-    <div id="sec-tasks" class="section">
-      <div class="toolbar">
-        <span class="toolbar-info" id="tasks-summary"></span>
-        <button class="btn primary" onclick="openModal('task')">+ Nova tarefa</button>
-      </div>
-      <div class="tasks-list" id="tasks-list"></div>
-    </div>
-
-    <!-- HISTORY -->
-    <div id="sec-history" class="section">
-      <div class="toolbar">
-        <span class="toolbar-info" id="history-count"></span>
-        <button class="btn primary" onclick="openModal('interaction')">+ Registrar contato</button>
-      </div>
-      <div class="history-list" id="history-list"></div>
-    </div>
-
-    <!-- ANÁLISE DE OBJEÇÕES -->
-    <div id="sec-analysis" class="section">
-      <div style="margin-bottom:20px">
-        <h2 style="font-size:16px;font-weight:500;margin-bottom:4px">Análise de objeções</h2>
-        <p style="font-size:13px;color:var(--text2)">Entenda os padrões nas suas conversas e o que está travando suas vendas</p>
-      </div>
-      <div class="analysis-grid" id="analysis-grid"></div>
-      <div style="margin-top:4px">
-        <h3 style="font-size:13px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Por contato</h3>
-        <div id="analysis-by-contact"></div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- MODAL -->
-<div class="overlay" id="overlay" onclick="fecharModalFora(event)">
-  <div class="modal">
-    <h2 id="modal-title"></h2>
-    <div id="modal-body"></div>
-    <div class="modal-footer" id="modal-footer">
-      <button class="btn ghost" onclick="fecharModal()">Cancelar</button>
-      <button class="btn primary" id="modal-save-btn" onclick="salvarModal()">Salvar</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-<input type="file" id="import-input" accept=".json" style="display:none" onchange="handleRestore(event)">
-
-<script>
-const KEY='crm_v3';
-let D={contacts:[],deals:[],tasks:[],interactions:[]};
-let modal=null,editId=null;
-
-function load(){
-  try{const r=localStorage.getItem(KEY);if(r)D=JSON.parse(r);}catch(e){}
-  if(!D.contacts.length&&!D.deals.length)seed();
-}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(D));}catch(e){}}
-
-function seed(){
-  D.contacts=[
-    {id:1,name:'Ana Lima',company:'Acme Ltda',email:'ana@acme.com',phone:'(11) 91234-5678',status:'cliente',notes:'Cliente desde 2023'},
-    {id:2,name:'Bruno Melo',company:'Tech Solutions',email:'bruno@tech.com',phone:'(11) 98765-4321',status:'lead',notes:'Interesse em consultoria'},
-    {id:3,name:'Carla Souza',company:'Startup XYZ',email:'carla@xyz.com.br',phone:'(21) 99876-5432',status:'prospect',notes:'Conheci no evento'},
-    {id:4,name:'Diego Pires',company:'Global Corp',email:'diego@global.com',phone:'(11) 97654-3210',status:'inativo',notes:''},
-  ];
-  D.deals=[
-    {id:1,title:'Consultoria Q3',company:'Acme Ltda',value:12000,stage:'proposta',contactId:1,notes:''},
-    {id:2,title:'Projeto Website',company:'Tech Solutions',value:5500,stage:'qualificacao',contactId:2,notes:''},
-    {id:3,title:'Mentoria Anual',company:'Startup XYZ',value:9600,stage:'negociacao',contactId:3,notes:''},
-  ];
-  D.tasks=[
-    {id:1,title:'Ligar para Ana Lima',contact:'Ana Lima',due:'2026-05-26',priority:'alta',done:false},
-    {id:2,title:'Enviar proposta para Bruno',contact:'Bruno Melo',due:'2026-05-27',priority:'media',done:false},
-    {id:3,title:'Follow-up Carla',contact:'Carla Souza',due:'2026-05-28',priority:'baixa',done:true},
-  ];
-  D.interactions=[
-    {id:1,type:'ligacao',contact:'Ana Lima',summary:'Renovação do contrato discutida. Cliente confirmou interesse.',date:'2026-05-24',objections:[]},
-    {id:2,type:'email',contact:'Bruno Melo',summary:'Enviei apresentação. Aguardando retorno.',date:'2026-05-23',objections:['Preço muito alto','Precisa de aprovação do sócio']},
-    {id:3,type:'reuniao',contact:'Carla Souza',summary:'Reunião de diagnóstico. Muito receptiva.',date:'2026-05-22',objections:['Não tem orçamento agora']},
-  ];
-  save();
-}
-
-function ini(n){return n.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();}
-function fd(d){if(!d)return '';const[y,m,dd]=d.split('-');return `${dd}/${m}/${y}`;}
-function fm(v){return 'R$ '+Number(v||0).toLocaleString('pt-BR');}
-
-let toastT;
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2800);}
-
-function showSection(s){
-  document.querySelectorAll('.section').forEach(e=>e.classList.remove('active'));
-  document.querySelectorAll('.nav button').forEach(e=>e.classList.remove('active'));
-  document.getElementById('sec-'+s).classList.add('active');
-  document.querySelectorAll('.nav button')[['contacts','pipeline','tasks','history','analysis'].indexOf(s)].classList.add('active');
-  render(s);
-}
-function render(s){({contacts:renderContacts,pipeline:renderPipeline,tasks:renderTasks,history:renderHistory,analysis:renderAnalysis})[s]();}
-function activeSection(){return ['contacts','pipeline','tasks','history','analysis'][[...document.querySelectorAll('.nav button')].findIndex(b=>b.classList.contains('active'))];}
-
-function renderContacts(){
-  const q=(document.getElementById('search-contacts').value||'').toLowerCase();
-  const f=D.contacts.filter(c=>c.name.toLowerCase().includes(q)||(c.company||'').toLowerCase().includes(q));
-  const g=document.getElementById('contacts-grid');
-  // gather objections per contact
-  const objMap={};
-  D.interactions.forEach(i=>{if(i.objections&&i.objections.length)objMap[i.contact]=(objMap[i.contact]||[]).concat(i.objections);});
-  if(!f.length){g.innerHTML='<div class="empty"><p>Nenhum contato encontrado</p></div>';}
-  else g.innerHTML=f.map(c=>{
-    const objs=[...new Set(objMap[c.name]||[])].slice(0,3);
-    const convCount=D.interactions.filter(i=>i.contact===c.name).length;
-    return `<div class="contact-card" onclick="openModal('contact',${c.id})">
-      <div class="avatar">${ini(c.name)}</div>
-      <h3>${c.name}</h3>
-      <div class="co">${c.company||'—'}</div>
-      <div class="em">${c.email||''}</div>
-      <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
-        <span class="tag ${c.status}">${{lead:'Lead',prospect:'Prospect',cliente:'Cliente',inativo:'Inativo'}[c.status]}</span>
-        ${convCount?`<span style="font-size:11px;color:var(--text3);display:flex;align-items:center;gap:3px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>${convCount} conversa${convCount>1?'s':''}</span>`:''}
-      </div>
-      ${objs.length?`<div style="margin-top:6px">${objs.map(o=>`<span class="objection-pill"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><circle cx="12" cy="12" r="10"/></svg>${o}</span>`).join('')}</div>`:''}
-      <div class="card-actions">
-        <button class="btn sm" style="flex:1;justify-content:center" onclick="event.stopPropagation();registrarConversa('${c.name.replace(/'/g,"\\'")}')">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Registrar conversa
-        </button>
-        <button class="btn sm danger" onclick="event.stopPropagation();excluir('contacts',${c.id})">Excluir</button>
-      </div>
-    </div>`;
-  }).join('');
-  const ct={total:D.contacts.length,clientes:D.contacts.filter(c=>c.status==='cliente').length,leads:D.contacts.filter(c=>c.status==='lead').length,prospects:D.contacts.filter(c=>c.status==='prospect').length};
-  document.getElementById('stats-row').innerHTML=[['Total de contatos','total'],['Clientes','clientes'],['Leads','leads'],['Prospects','prospects']].map(([l,k])=>`<div class="stat"><div class="val">${ct[k]}</div><div class="lbl">${l}</div></div>`).join('');
-}
-
-const STAGES=[{key:'qualificacao',label:'Qualificação'},{key:'proposta',label:'Proposta'},{key:'negociacao',label:'Negociação'},{key:'fechado',label:'Fechado'}];
-function renderPipeline(){
-  const total=D.deals.reduce((s,d)=>s+Number(d.value||0),0);
-  document.getElementById('pipeline-summary').textContent=`Total em aberto: ${fm(total)}`;
-  document.getElementById('pipeline-board').innerHTML=STAGES.map(st=>{
-    const deals=D.deals.filter(d=>d.stage===st.key);
-    return `<div class="stage"><div class="stage-header">${st.label}<span class="stage-count">${deals.length}</span></div>
-    ${deals.map(d=>`<div class="deal-card" onclick="openModal('deal',${d.id})"><h4>${d.title}</h4><div class="dc">${d.company||'—'}</div><div class="deal-value">${fm(d.value)}</div><div style="margin-top:8px"><button class="btn sm danger" onclick="event.stopPropagation();excluir('deals',${d.id})">Excluir</button></div></div>`).join('')}
-    <button class="add-deal-btn" onclick="openDealStage('${st.key}')">+ adicionar</button></div>`;
-  }).join('');
-}
-
-function renderTasks(){
-  const sorted=[...D.tasks].sort((a,b)=>{if(a.done!==b.done)return a.done?1:-1;return new Date(a.due)-new Date(b.due);});
-  const p=D.tasks.filter(t=>!t.done).length;
-  document.getElementById('tasks-summary').textContent=p?`${p} tarefa${p>1?'s':''} pendente${p>1?'s':''}`:'Todas as tarefas concluídas 🎉';
-  const el=document.getElementById('tasks-list');
-  if(!sorted.length){el.innerHTML='<div class="empty"><p>Nenhuma tarefa ainda</p></div>';return;}
-  el.innerHTML=sorted.map(t=>`<div class="task-item ${t.done?'done':''}">
-    <div class="prio p-${t.priority}"></div>
-    <div class="task-check ${t.done?'checked':''}" onclick="toggleTask(${t.id})">${t.done?'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':''}</div>
-    <div class="task-label"><div class="task-title">${t.title}</div><div class="task-meta">${t.contact||''}${t.due?' · Até '+fd(t.due):''}</div></div>
-    <button class="btn sm ghost" onclick="openModal('task',${t.id})">Editar</button>
-    <button class="btn sm danger" onclick="excluir('tasks',${t.id})">Excluir</button>
-  </div>`).join('');
-}
-
-const IEMOJI={ligacao:'📞',email:'✉️',reuniao:'🤝',mensagem:'💬'};
-const ILABEL={ligacao:'Ligação',email:'E-mail',reuniao:'Reunião',mensagem:'Mensagem'};
-
-function renderHistory(){
-  const sorted=[...D.interactions].sort((a,b)=>new Date(b.date)-new Date(a.date));
-  document.getElementById('history-count').textContent=`${sorted.length} registro${sorted.length!==1?'s':''} de contato`;
-  const el=document.getElementById('history-list');
-  if(!sorted.length){el.innerHTML='<div class="empty"><p>Nenhuma interação registrada ainda</p></div>';return;}
-  el.innerHTML=sorted.map(i=>`<div class="h-item">
-    <div class="h-icon">${IEMOJI[i.type]||'💬'}</div>
-    <div class="h-body">
-      <h4>${i.contact}</h4><p>${i.summary}</p>
-      ${(i.objections&&i.objections.length)?`<div class="h-objections">${i.objections.map(o=>`<span class="objection-pill"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><circle cx="12" cy="12" r="10"/></svg>${o}</span>`).join('')}</div>`:''}
-      <div class="h-time">${fd(i.date)} · ${ILABEL[i.type]||i.type}</div>
-    </div>
-    <button class="btn sm danger" onclick="excluir('interactions',${i.id})">Excluir</button>
-  </div>`).join('');
-}
-
-function renderAnalysis(){
-  // Count all objections
-  const freq={};
-  const byContact={};
-  D.interactions.forEach(i=>{
-    (i.objections||[]).forEach(o=>{
-      freq[o]=(freq[o]||0)+1;
-      if(!byContact[i.contact])byContact[i.contact]=[];
-      if(!byContact[i.contact].includes(o))byContact[i.contact].push(o);
-    });
-  });
-  const sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]);
-  const totalObjs=Object.values(freq).reduce((s,v)=>s+v,0);
-  const grid=document.getElementById('analysis-grid');
-
-  if(!sorted.length){
-    grid.innerHTML=`<div class="analysis-card" style="grid-column:1/-1">
-      <div class="analysis-empty">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 12px;display:block;opacity:.3"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        <p>Nenhuma objeção registrada ainda.</p>
-        <p style="margin-top:6px">Registre conversas com objeções para ver a análise aqui.</p>
-      </div>
-    </div>`;
-    document.getElementById('analysis-by-contact').innerHTML='';
-    return;
-  }
-
-  const maxVal=sorted[0][1];
-  grid.innerHTML=`
-    <div class="analysis-card">
-      <h3>Objeções mais frequentes</h3>
-      ${sorted.slice(0,8).map(([o,n])=>`
-        <div class="obj-bar-item">
-          <div class="obj-bar-label"><span>${o}</span><span>${n}x</span></div>
-          <div class="obj-bar-track"><div class="obj-bar-fill" style="width:${Math.round(n/maxVal*100)}%"></div></div>
-        </div>`).join('')}
-    </div>
-    <div class="analysis-card">
-      <h3>Resumo</h3>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
-        <div class="stat" style="border:1px solid var(--border)"><div class="val" style="font-size:22px">${sorted.length}</div><div class="lbl">Tipos de objeção</div></div>
-        <div class="stat" style="border:1px solid var(--border)"><div class="val" style="font-size:22px">${totalObjs}</div><div class="lbl">Total registrado</div></div>
-      </div>
-      <h3 style="margin-bottom:10px">Objeção principal</h3>
-      <div style="background:var(--red-bg);border-radius:var(--rs);padding:12px 14px">
-        <div style="font-size:15px;font-weight:500;color:var(--red);margin-bottom:4px">${sorted[0][0]}</div>
-        <div style="font-size:12px;color:var(--text2)">Apareceu ${sorted[0][1]} vez${sorted[0][1]>1?'es':''} nas suas conversas</div>
-      </div>
-    </div>`;
-
-  const byContactEl=document.getElementById('analysis-by-contact');
-  const entries=Object.entries(byContact).filter(([,v])=>v.length>0);
-  if(!entries.length){byContactEl.innerHTML='';return;}
-  byContactEl.innerHTML=`<div class="analysis-card" style="margin-bottom:0">
-    <h3>Por contato</h3>
-    ${entries.map(([name,objs])=>`
-      <div class="obj-contact-item">
-        <div class="obj-contact-avatar">${ini(name)}</div>
-        <div class="obj-contact-info">
-          <div class="obj-contact-name">${name}</div>
-          <div class="obj-contact-pills">${objs.map(o=>`<span class="objection-pill">${o}</span>`).join('')}</div>
-        </div>
-      </div>`).join('')}
-  </div>`;
-}
-
-function toggleTask(id){const t=D.tasks.find(t=>t.id===id);if(t){t.done=!t.done;save();renderTasks();}}
-function excluir(col,id){D[col]=D[col].filter(i=>i.id!==id);save();render(activeSection());}
-function openDealStage(stage){openModal('deal',null,stage);}
-
-// ─── FORMS ───────────────────────────────────────────────────────────────────
-const COL={contact:'contacts',deal:'deals',task:'tasks',interaction:'interactions'};
-const TITLES={contact:['Editar contato','Novo contato'],deal:['Editar oportunidade','Nova oportunidade'],task:['Editar tarefa','Nova tarefa'],interaction:['Editar registro','Registrar contato']};
-
-function formContact(c){
-  const convs=c?D.interactions.filter(i=>i.contact===c.name).sort((a,b)=>new Date(b.date)-new Date(a.date)):[];
-  const IEMOJI2={ligacao:'📞',email:'✉️',reuniao:'🤝',mensagem:'💬'};
-  const convsHtml=convs.length?`
-  <div class="form-row" style="margin-top:4px">
-    <label style="display:flex;align-items:center;justify-content:space-between">
-      Conversas registradas
-      <button class="btn sm" style="font-size:11px;padding:3px 8px" onclick="event.preventDefault();registrarConversa('${c?c.name.replace(/'/g,"\'"):''}')">+ Nova conversa</button>
-    </label>
-    <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px">
-      ${convs.map(i=>`
-        <div style="background:var(--surface2);border-radius:var(--rs);padding:10px 12px;">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
-            <span style="font-size:13px">${IEMOJI2[i.type]||'💬'}</span>
-            <span style="font-size:12px;font-weight:500">${{ligacao:'Ligação',email:'E-mail',reuniao:'Reunião',mensagem:'Mensagem'}[i.type]||i.type}</span>
-            <span style="font-size:11px;color:var(--text3);margin-left:auto">${fd(i.date)}</span>
-          </div>
-          <p style="font-size:12px;color:var(--text2);line-height:1.5">${i.summary||'—'}</p>
-          ${(i.objections&&i.objections.length)?`<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:4px">${i.objections.map(o=>`<span class="objection-pill">${o}</span>`).join('')}</div>`:''}
-        </div>`).join('')}
-    </div>
-  </div>`:`
-  <div class="form-row" style="margin-top:4px">
-    <label>Conversas registradas</label>
-    <div style="background:var(--surface2);border-radius:var(--rs);padding:14px;text-align:center">
-      <p style="font-size:12px;color:var(--text3);margin-bottom:8px">Nenhuma conversa registrada ainda</p>
-      <button class="btn sm" onclick="event.preventDefault();fecharModal();setTimeout(()=>registrarConversa('${c?c.name.replace(/'/g,"\'"):''}'),100)">+ Registrar primeira conversa</button>
-    </div>
-  </div>`;
-  return `
-  <div class="form-row"><label>Nome *</label><input id="f-name" value="${c?c.name:''}" placeholder="Nome completo"></div>
-  <div class="form-row"><label>Empresa</label><input id="f-company" value="${c?c.company:''}" placeholder="Nome da empresa"></div>
-  <div class="form-row"><label>E-mail</label><input id="f-email" type="email" value="${c?c.email:''}" placeholder="email@exemplo.com"></div>
-  <div class="form-row"><label>Telefone</label><input id="f-phone" value="${c?c.phone:''}" placeholder="(11) 9xxxx-xxxx"></div>
-  <div class="form-row"><label>Situação</label><select id="f-status">
-    <option value="lead" ${c&&c.status==='lead'?'selected':''}>Lead — ainda não abordado</option>
-    <option value="prospect" ${c&&c.status==='prospect'?'selected':''}>Prospect — em conversa</option>
-    <option value="cliente" ${c&&c.status==='cliente'?'selected':''}>Cliente — ativo</option>
-    <option value="inativo" ${c&&c.status==='inativo'?'selected':''}>Inativo</option>
-  </select></div>
-  <div class="form-row"><label>Observações</label><textarea id="f-notes">${c?c.notes:''}</textarea></div>
-  ${c?convsHtml:''}
-`;}
-
-function formDeal(d,stage){return `
-  <div class="form-row"><label>Descrição *</label><input id="f-title" value="${d?d.title:''}" placeholder="Ex: Consultoria Q4"></div>
-  <div class="form-row"><label>Empresa</label><input id="f-company" value="${d?d.company:''}" placeholder="Nome da empresa"></div>
-  <div class="form-row"><label>Valor estimado (R$)</label><input id="f-value" type="number" value="${d?d.value:''}" placeholder="0"></div>
-  <div class="form-row"><label>Etapa</label><select id="f-stage">${STAGES.map(s=>`<option value="${s.key}" ${(d?d.stage:stage)===s.key?'selected':''}>${s.label}</option>`).join('')}</select></div>
-  <div class="form-row"><label>Contato relacionado</label><select id="f-contact"><option value="">Nenhum</option>${D.contacts.map(c=>`<option value="${c.id}" ${d&&d.contactId==c.id?'selected':''}>${c.name}</option>`).join('')}</select></div>
-  <div class="form-row"><label>Observações</label><textarea id="f-notes">${d?d.notes:''}</textarea></div>`;}
-
-function formTask(t){return `
-  <div class="form-row"><label>O que precisa ser feito? *</label><input id="f-title" value="${t?t.title:''}" placeholder="Ex: Ligar para o cliente"></div>
-  <div class="form-row"><label>Contato</label><input id="f-contact" value="${t?t.contact:''}" list="cnl" placeholder="Nome do contato"><datalist id="cnl">${D.contacts.map(c=>`<option value="${c.name}">`).join('')}</datalist></div>
-  <div class="form-row"><label>Data limite</label><input id="f-due" type="date" value="${t?t.due:''}"></div>
-  <div class="form-row"><label>Prioridade</label><select id="f-priority">
-    <option value="baixa" ${t&&t.priority==='baixa'?'selected':''}>Baixa</option>
-    <option value="media" ${!t||t.priority==='media'?'selected':''}>Média</option>
-    <option value="alta" ${t&&t.priority==='alta'?'selected':''}>Alta</option>
-  </select></div>`;}
-
-function formInteraction(i){
-  const objStr=(i&&i.objections)?i.objections.join(', '):'';
-  return `
-  <div class="conv-tabs">
-    <button class="conv-tab active" onclick="switchTab('manual')">Digitar manualmente</button>
-    <button class="conv-tab" onclick="switchTab('paste')">Colar conversa — IA analisa</button>
-  </div>
-
-  <div id="panel-manual" class="conv-panel active">
-    <div class="form-row"><label>Com quem você falou? *</label><input id="f-contact" value="${i?i.contact:''}" list="cnl2" placeholder="Nome do contato"><datalist id="cnl2">${D.contacts.map(c=>`<option value="${c.name}">`).join('')}</datalist></div>
-    <div class="form-row"><label>Tipo de contato</label><select id="f-type">
-      <option value="ligacao" ${i&&i.type==='ligacao'?'selected':''}>📞 Ligação</option>
-      <option value="email" ${i&&i.type==='email'?'selected':''}>✉️ E-mail</option>
-      <option value="reuniao" ${i&&i.type==='reuniao'?'selected':''}>🤝 Reunião</option>
-      <option value="mensagem" ${i&&i.type==='mensagem'?'selected':''}>💬 Mensagem</option>
-    </select></div>
-    <div class="form-row"><label>Data</label><input id="f-date" type="date" value="${i?i.date:new Date().toISOString().split('T')[0]}"></div>
-    <div class="form-row"><label>O que aconteceu?</label><textarea id="f-summary" placeholder="Escreva um resumo do que foi conversado">${i?i.summary:''}</textarea></div>
-    <div class="form-row"><label>Objeções identificadas</label><input id="f-objections" value="${objStr}" placeholder="Ex: Preço alto, Não tem tempo agora — separadas por vírgula"></div>
-  </div>
-
-  <div id="panel-paste" class="conv-panel">
-    <div class="form-row"><label>Com quem você falou? *</label><input id="f-contact2" value="${i?i.contact:''}" list="cnl3" placeholder="Nome do contato"><datalist id="cnl3">${D.contacts.map(c=>`<option value="${c.name}">`).join('')}</datalist></div>
-    <div class="form-row"><label>Tipo de contato</label><select id="f-type2">
-      <option value="ligacao">📞 Ligação</option>
-      <option value="email">✉️ E-mail</option>
-      <option value="reuniao">🤝 Reunião</option>
-      <option value="mensagem">💬 Mensagem</option>
-    </select></div>
-    <div class="form-row"><label>Data</label><input id="f-date2" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
-    <div class="form-row"><label>Cole o texto da conversa aqui</label><textarea id="f-conv-text" class="tall" placeholder="Cole aqui o texto da conversa, e-mail ou anotações. A IA vai identificar as objeções automaticamente."></textarea></div>
-    <button class="btn ai" id="btn-analyze" onclick="analisarComIA()" style="width:100%;justify-content:center;margin-top:4px">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><circle cx="18" cy="6" r="3" fill="currentColor" stroke="none"/></svg>
-      Analisar com IA
-    </button>
-    <div class="ai-status" id="ai-status"><div class="spinner" id="ai-spinner"></div><span id="ai-status-text"></span></div>
-    <div id="extracted-list"></div>
   </div>`;
 }
 
@@ -1251,13 +649,13 @@ async function analisarComIA(){
         model:'claude-sonnet-4-20250514',
         max_tokens:1200,
         system:`Você é um assistente especialista em vendas. Analise a conversa e extraia informações comerciais. Responda SOMENTE com JSON neste formato exato, sem texto adicional, sem markdown:
-{"objections":["objeção 1"],"summary":"resumo em 1-2 frases","deal":{"title":"nome da oportunidade de negócio identificada","value":0,"stage":"qualificacao"}}
+{"objections":["objeção 1"],"summary":"resumo em 1-2 frases","deal":{"title":"nome da oportunidade","value":0,"stage":"qualificacao"}}
 Regras:
-- objections: objeções ou preocupações levantadas pelo cliente (array vazio se nenhuma)
+- objections: objeções ou preocupações do cliente (array vazio se nenhuma)
 - summary: o que foi conversado em 1-2 frases
-- deal.title: nome curto descritivo do serviço/produto em negociação (ex: "Consultoria de planilhas", "Projeto de website"). Null se não houver oportunidade clara.
+- deal.title: nome curto do serviço/produto em negociação. Null se não houver oportunidade clara.
 - deal.value: valor em reais se mencionado, senão 0
-- deal.stage: "qualificacao" se só há interesse inicial, "proposta" se foi pedido proposta, "negociacao" se estão negociando valores`,
+- deal.stage: "qualificacao" se interesse inicial, "proposta" se pediu proposta, "negociacao" se negociando valores`,
         messages:[{role:'user',content:`Analise esta conversa:\n\n${text}`}]
       })
     });
@@ -1268,8 +666,6 @@ Regras:
     const summary=parsed.summary||'';
     const deal=parsed.deal||null;
     spinner.classList.remove('show');
-
-    // Show objections
     const contact2=document.getElementById('f-contact2')?.value||'';
     statusEl.textContent=objs.length
       ?`${objs.length} objeção${objs.length>1?'ões':''} encontrada${objs.length>1?'s':''}. Marque as que deseja salvar:`
@@ -1278,8 +674,6 @@ Regras:
       ${objs.length?`<div class="extracted-list">${objs.map((o,i)=>`<div class="extracted-item"><input type="checkbox" id="obj-${i}" checked><label for="obj-${i}" style="flex:1;cursor:pointer">${o}</label></div>`).join('')}</div>`:''}
       ${summary?`<div style="margin-top:10px;padding:10px 12px;background:var(--surface2);border-radius:var(--rs);font-size:13px;color:var(--text2)"><strong style="color:var(--text)">Resumo:</strong> ${summary}</div>`:''}
       <input type="hidden" id="ai-summary" value="${summary.replace(/"/g,'&quot;')}">`;
-
-    // Show deal suggestion if identified
     if(deal&&deal.title){
       document.getElementById('deal-suggestion').style.display='block';
       document.getElementById('ds-title').value=deal.title+(contact2?' — '+contact2:'');
@@ -1301,6 +695,9 @@ function registrarConversa(nome){
     if(f2)f2.value=nome;
   },50);
 }
+
+const COL={contact:'contacts',deal:'deals',task:'tasks',interaction:'interactions'};
+const TITLES={contact:['Editar contato','Novo contato'],deal:['Editar oportunidade','Nova oportunidade'],task:['Editar tarefa','Nova tarefa'],interaction:['Editar registro','Registrar contato']};
 
 function openModal(type,id=null,stage=null){
   modal=type;editId=id;activeTab='manual';
@@ -1338,15 +735,11 @@ function salvarModal(){
       const aiSummary=g('ai-summary')?.value||'';
       const manualSummary=g('f-conv-text').value.substring(0,200);
       obj={type:g('f-type2').value,contact,date:g('f-date2').value,summary:aiSummary||manualSummary,objections:objs};
-      // Save deal if suggestion is visible and checkbox is checked
       const dealBox=g('deal-save-check');
       const dealTitle=g('ds-title')?.value.trim();
       if(dealBox&&dealBox.checked&&dealTitle){
-        const dealStage=g('ds-stage')?.value||'qualificacao';
-        const dealValue=g('ds-value')?.value||0;
         const relContact=D.contacts.find(c=>c.name===contact);
-        const newDeal={id:D.deals.reduce((m,i)=>Math.max(m,i.id),0)+1,title:dealTitle,company:relContact?.company||'',value:dealValue,stage:dealStage,contactId:relContact?.id||'',notes:''};
-        D.deals.push(newDeal);
+        D.deals.push({id:D.deals.reduce((m,i)=>Math.max(m,i.id),0)+1,title:dealTitle,company:relContact?.company||'',value:g('ds-value')?.value||0,stage:g('ds-stage')?.value||'qualificacao',contactId:relContact?.id||'',notes:''});
         savedDeal=true;
       }
     }
@@ -1355,8 +748,7 @@ function salvarModal(){
   const col=COL[modal];
   if(editId){const idx=D[col].findIndex(i=>i.id===editId);if(idx>-1)D[col][idx]={...D[col][idx],...obj};}
   else{D[col].push({id:D[col].reduce((m,i)=>Math.max(m,i.id),0)+1,...obj});}
-  save();fecharModal();render(activeSection());
-  toast(savedDeal?'Conversa e oportunidade salvas ✓':'Salvo com sucesso ✓');
+  save();fecharModal();render(activeSection());toast(savedDeal?'Conversa e oportunidade salvas ✓':'Salvo com sucesso ✓');
 }
 
 function exportarBackup(){
@@ -1388,7 +780,8 @@ function handleRestore(e){
   reader.readAsText(file);
 }
 
-load();renderContacts();
+load();
+renderContacts();
 </script>
 </body>
 </html>
