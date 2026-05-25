@@ -357,13 +357,17 @@ function renderContacts(){
   if(!f.length){g.innerHTML='<div class="empty"><p>Nenhum contato encontrado</p></div>';}
   else g.innerHTML=f.map(c=>{
     const objs=[...new Set(objMap[c.name]||[])].slice(0,3);
+    const convCount=D.interactions.filter(i=>i.contact===c.name).length;
     return `<div class="contact-card" onclick="openModal('contact',${c.id})">
       <div class="avatar">${ini(c.name)}</div>
       <h3>${c.name}</h3>
       <div class="co">${c.company||'—'}</div>
       <div class="em">${c.email||''}</div>
-      <span class="tag ${c.status}">${{lead:'Lead',prospect:'Prospect',cliente:'Cliente',inativo:'Inativo'}[c.status]}</span>
-      ${objs.length?`<div style="margin-top:8px">${objs.map(o=>`<span class="objection-pill"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><circle cx="12" cy="12" r="10"/></svg>${o}</span>`).join('')}</div>`:''}
+      <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+        <span class="tag ${c.status}">${{lead:'Lead',prospect:'Prospect',cliente:'Cliente',inativo:'Inativo'}[c.status]}</span>
+        ${convCount?`<span style="font-size:11px;color:var(--text3);display:flex;align-items:center;gap:3px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>${convCount} conversa${convCount>1?'s':''}</span>`:''}
+      </div>
+      ${objs.length?`<div style="margin-top:6px">${objs.map(o=>`<span class="objection-pill"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><circle cx="12" cy="12" r="10"/></svg>${o}</span>`).join('')}</div>`:''}
       <div class="card-actions">
         <button class="btn sm" style="flex:1;justify-content:center" onclick="event.stopPropagation();registrarConversa('${c.name.replace(/'/g,"\\'")}')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -497,7 +501,36 @@ function openDealStage(stage){openModal('deal',null,stage);}
 const COL={contact:'contacts',deal:'deals',task:'tasks',interaction:'interactions'};
 const TITLES={contact:['Editar contato','Novo contato'],deal:['Editar oportunidade','Nova oportunidade'],task:['Editar tarefa','Nova tarefa'],interaction:['Editar registro','Registrar contato']};
 
-function formContact(c){return `
+function formContact(c){
+  const convs=c?D.interactions.filter(i=>i.contact===c.name).sort((a,b)=>new Date(b.date)-new Date(a.date)):[];
+  const IEMOJI2={ligacao:'📞',email:'✉️',reuniao:'🤝',mensagem:'💬'};
+  const convsHtml=convs.length?`
+  <div class="form-row" style="margin-top:4px">
+    <label style="display:flex;align-items:center;justify-content:space-between">
+      Conversas registradas
+      <button class="btn sm" style="font-size:11px;padding:3px 8px" onclick="event.preventDefault();registrarConversa('${c?c.name.replace(/'/g,"\'"):''}')">+ Nova conversa</button>
+    </label>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px">
+      ${convs.map(i=>`
+        <div style="background:var(--surface2);border-radius:var(--rs);padding:10px 12px;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+            <span style="font-size:13px">${IEMOJI2[i.type]||'💬'}</span>
+            <span style="font-size:12px;font-weight:500">${{ligacao:'Ligação',email:'E-mail',reuniao:'Reunião',mensagem:'Mensagem'}[i.type]||i.type}</span>
+            <span style="font-size:11px;color:var(--text3);margin-left:auto">${fd(i.date)}</span>
+          </div>
+          <p style="font-size:12px;color:var(--text2);line-height:1.5">${i.summary||'—'}</p>
+          ${(i.objections&&i.objections.length)?`<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:4px">${i.objections.map(o=>`<span class="objection-pill">${o}</span>`).join('')}</div>`:''}
+        </div>`).join('')}
+    </div>
+  </div>`:`
+  <div class="form-row" style="margin-top:4px">
+    <label>Conversas registradas</label>
+    <div style="background:var(--surface2);border-radius:var(--rs);padding:14px;text-align:center">
+      <p style="font-size:12px;color:var(--text3);margin-bottom:8px">Nenhuma conversa registrada ainda</p>
+      <button class="btn sm" onclick="event.preventDefault();fecharModal();setTimeout(()=>registrarConversa('${c?c.name.replace(/'/g,"\'"):''}'),100)">+ Registrar primeira conversa</button>
+    </div>
+  </div>`;
+  return `
   <div class="form-row"><label>Nome *</label><input id="f-name" value="${c?c.name:''}" placeholder="Nome completo"></div>
   <div class="form-row"><label>Empresa</label><input id="f-company" value="${c?c.company:''}" placeholder="Nome da empresa"></div>
   <div class="form-row"><label>E-mail</label><input id="f-email" type="email" value="${c?c.email:''}" placeholder="email@exemplo.com"></div>
@@ -508,7 +541,9 @@ function formContact(c){return `
     <option value="cliente" ${c&&c.status==='cliente'?'selected':''}>Cliente — ativo</option>
     <option value="inativo" ${c&&c.status==='inativo'?'selected':''}>Inativo</option>
   </select></div>
-  <div class="form-row"><label>Observações</label><textarea id="f-notes">${c?c.notes:''}</textarea></div>`;}
+  <div class="form-row"><label>Observações</label><textarea id="f-notes">${c?c.notes:''}</textarea></div>
+  ${c?convsHtml:''}
+`;}
 
 function formDeal(d,stage){return `
   <div class="form-row"><label>Descrição *</label><input id="f-title" value="${d?d.title:''}" placeholder="Ex: Consultoria Q4"></div>
